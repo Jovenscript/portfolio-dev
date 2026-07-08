@@ -1,0 +1,58 @@
+/* ============================================================
+   MARLON TAVARES — design tokens + base (Nocturne)
+   ============================================================ */
+:root{
+  --void:#080A0F; --deep:#0B0E15; --surface:#10141E; --surface-2:#141926;
+  --line:#232A3A; --line-2:#1A2130; --glass:rgba(255,255,255,.03); --glass-edge:rgba(255,255,255,.08);
+  --text:#F4F6FB; --muted:#9AA1B5; --dim:#626A80;
+  --a1:#7FB2FF; --a2:#56E0D0;
+  --grad:linear-gradient(120deg,var(--a1),var(--a2));
+  --glow-blue:rgba(78,150,255,.30); --glow-aqua:rgba(70,220,208,.20); --glow-iris:rgba(150,120,255,.16);
+  --font-display:"Sora",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --maxw:1140px; --pad:clamp(18px,4.2vw,40px); --radius:16px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--font-body);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{margin:0;font-family:var(--font-display);font-weight:800;line-height:1.08;letter-spacing:-.03em}
+p{margin:0 0 1em}
+a{color:inherit}
+button{font-family:inherit}
+.mono{font-family:var(--font-mono)}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+:focus-visible{outline:2px solid var(--a1);outline-offset:3px;border-radius:6px}
+.skip-link{position:fixed;left:-9999px;top:0;z-index:200;background:var(--a1);color:#04121f;
+  font-weight:700;text-decoration:none;padding:10px 16px;border-radius:0 0 10px 0}
+.skip-link:focus{left:0}
+.container{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ambiente */
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("/assets/grain.png");background-size:128px;opacity:.05;mix-blend-mode:overlay}
+.aurora{position:fixed;inset:-10% -10% 0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.7;will-change:transform}
+.blob-a{width:52vw;height:52vw;top:-12vw;right:-8vw;background:radial-gradient(circle,var(--glow-blue),transparent 68%)}
+.blob-b{width:44vw;height:44vw;top:40vh;left:-14vw;background:radial-gradient(circle,var(--glow-aqua),transparent 66%)}
+.blob-c{width:34vw;height:34vw;top:130vh;right:6vw;background:radial-gradient(circle,var(--glow-iris),transparent 64%)}
+
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--a2);
+  box-shadow:0 0 0 3px rgba(86,224,208,.14),0 0 8px rgba(86,224,208,.7);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 5px rgba(86,224,208,.07),0 0 12px rgba(86,224,208,.9)}}
+
+section{position:relative;z-index:2}
+.section{max-width:var(--maxw);margin:0 auto;padding:clamp(66px,10vw,120px) var(--pad)}
+.section-head{margin-bottom:clamp(30px,4vw,48px);max-width:64ch}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;color:var(--a2);
+  margin-bottom:16px;padding-bottom:2px;border-bottom:1px solid rgba(86,224,208,.3)}
+.section-head h2{font-size:clamp(27px,3.6vw,42px);font-weight:800}
+.section-sub{color:var(--muted);margin:12px 0 0;font-size:clamp(15px,1.4vw,17px)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .blob{display:none}
+}
