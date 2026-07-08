@@ -1,13 +1,13 @@
 type Props = { compact?: boolean }
 
-/** Marca: símbolo (chip hexagonal + M de circuito) + wordmark. */
+/** Marca MHTDev: símbolo (chip hexagonal + M) + wordmark. */
 export function Logo({ compact = false }: Props) {
   return (
-    <span className="logo" aria-label="Marlon Tavares">
+    <span className="logo" aria-label="MHTDev — Marlon Tavares">
       <LogoMark />
       {!compact && (
         <span className="logo-word">
-          <b>Marlon</b> Tavares
+          <b>MHT</b><span className="dev">Dev</span>
         </span>
       )}
     </span>

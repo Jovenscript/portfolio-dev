@@ -1,12 +1,10 @@
-import { Suspense, lazy, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { STATS } from '../../data/site'
-import { useIsMobile, usePrefersReducedMotion, useWebGL } from '../../lib/hooks'
-import { LogoMark } from '../brand/Logo'
+import { usePrefersReducedMotion } from '../../lib/hooks'
+import { Logo } from '../brand/Logo'
 import { Reveal } from '../ui/Reveal'
-import { IconArrow } from '../ui/icons'
-
-const HeroCanvas = lazy(() => import('./HeroCanvas'))
+import { IconArrow, IconCode, IconPin, IconSpark } from '../ui/icons'
 
 function StatCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
   const ref = useRef<HTMLElement>(null)
@@ -16,8 +14,8 @@ function StatCounter({ end, suffix, label }: { end: number; suffix: string; labe
   useEffect(() => {
     if (!inView) return
     if (reduce) { setVal(end); return }
-    const controls = animate(0, end, { duration: 1.2, ease: 'easeOut', onUpdate: (v) => setVal(Math.floor(v)) })
-    return () => controls.stop()
+    const c = animate(0, end, { duration: 1.2, ease: 'easeOut', onUpdate: (v) => setVal(Math.floor(v)) })
+    return () => c.stop()
   }, [inView, end, reduce])
   return (
     <div>
@@ -27,42 +25,28 @@ function StatCounter({ end, suffix, label }: { end: number; suffix: string; labe
   )
 }
 
-function Stage() {
-  const reduce = usePrefersReducedMotion()
-  const webgl = useWebGL()
-  const mobile = useIsMobile()
-  const stageRef = useRef<HTMLDivElement>(null)
-  const [active, setActive] = useState(true)
-  // 3D apenas em desktop com WebGL e sem redução de movimento.
-  // No mobile mostramos o símbolo estático → nada de baixar o Three.js (887 KB).
-  const use3D = webgl && !reduce && !mobile
-
-  useEffect(() => {
-    if (!use3D || !stageRef.current) return
-    const io = new IntersectionObserver(([e]) => setActive(e.isIntersecting), { threshold: 0.05 })
-    io.observe(stageRef.current)
-    return () => io.disconnect()
-  }, [use3D])
-
+/** Cartão de vidro (business card) que substitui o antigo 3D. */
+function IdCard() {
   return (
-    <div className="core-stage" ref={stageRef} aria-hidden>
-      <div className="core-glowbg" />
-      {use3D ? (
-        <div className="core-canvas">
-          <Suspense fallback={<Fallback />}>
-            <HeroCanvas active={active} />
-          </Suspense>
-        </div>
-      ) : (
-        <Fallback />
-      )}
-    </div>
+    <Reveal className="id-card" delay={0.1} y={30}>
+      <div className="id-top">
+        <span className="id-brand"><Logo /></span>
+        <span className="id-chip">Full Stack</span>
+      </div>
+      <h2 className="id-name">Marlon Tavares</h2>
+      <p className="id-role">Desenvolvedor Full Stack &amp; técnico de manutenção industrial</p>
+      <div className="id-facts">
+        <div><IconPin /> Jaraguá do Sul · Santa Catarina</div>
+        <div><IconCode /> React · Firebase · JavaScript</div>
+        <div><IconSpark /> 4 produtos rodando em produção</div>
+      </div>
+      <div className="id-tags">
+        <span>Vite</span><span>Tailwind</span><span>Capacitor</span><span>Cloud Functions</span>
+      </div>
+      <div className="id-status"><span className="dot" />Disponível para novos projetos</div>
+    </Reveal>
   )
 }
-
-const Fallback = () => (
-  <div className="core-fallback"><LogoMark size={280} /></div>
-)
 
 export function Hero() {
   const { scrollY } = useScroll()
@@ -99,7 +83,7 @@ export function Hero() {
           </Reveal>
         </motion.div>
 
-        <Stage />
+        <IdCard />
       </div>
       <div className="container"><div className="scroll-hint">Role para explorar</div></div>
     </section>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './styles.css'
 import type { Project } from './data/site'
+import { Backdrop } from './components/layout/Backdrop'
 import { Navbar, ScrollProgress } from './components/layout/Navbar'
 import { Footer, Lightbox } from './components/layout/Footer'
 import { Hero } from './components/hero/Hero'
@@ -15,21 +16,24 @@ export default function App() {
   return (
     <>
       <a className="skip-link" href="#sobre">Pular para o conteúdo</a>
+      <Backdrop />
       <div className="grain" aria-hidden />
-      <div className="aurora" aria-hidden>
-        <span className="blob blob-a" /><span className="blob blob-b" /><span className="blob blob-c" />
-      </div>
+
       <ScrollProgress />
       <Navbar />
-      <main>
-        <Hero />
-        <Marquee />
-        <About />
-        <Projects onOpen={setActive} />
-        <Stack />
-        <Contact />
-      </main>
-      <Footer />
+
+      <div className="page">
+        <main>
+          <Hero />
+          <Marquee />
+          <About />
+          <Projects onOpen={setActive} />
+          <Stack />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+
       <Lightbox project={active} onClose={() => setActive(null)} />
     </>
   )
