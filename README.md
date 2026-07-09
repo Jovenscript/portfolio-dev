@@ -1,6 +1,6 @@
 # Portfólio — MHTDev (Marlon Tavares)
 
-Portfólio pessoal em **React + Vite + TypeScript**, com **fundo em vídeo animado**,
+Portfólio pessoal em **React + Vite + TypeScript**, com **fundo animado em canvas (circuito reativo ao scroll)**,
 interface em **Glassmorphism** (estilo iOS/macOS) e animações ligadas ao scroll (**Framer Motion**).
 
 ---
@@ -13,7 +13,7 @@ Tudo em **`src/data/site.ts`**:
 2. **URL do 5S Manutenção** — no projeto `5S Manutenção`, preencha `demo` se houver link público.
 3. **URL do Wedding Planner** — preencha `demo` quando publicar.
 
-> Vídeo de fundo: `public/assets/bg.mp4` (+ `bg-poster.webp`). Para trocar, substitua mantendo os nomes.
+> Fundo animado: gerado por código em `components/layout/Backdrop.tsx` (nada de vídeo).
 > Fotos dos projetos: `public/assets/*.webp`.
 
 ---
@@ -37,7 +37,7 @@ src/
   components/
     brand/Logo.tsx       → marca MHTDev (símbolo + wordmark)
     layout/
-      Backdrop.tsx        → vídeo de fundo fixo + overlay + parallax
+      Backdrop.tsx        → fundo animado (canvas circuito) reativo ao scroll
       Navbar / Footer / Lightbox / ScrollProgress
     hero/Hero.tsx         → hero + cartão de vidro (id-card)
     sections/             → About, Projects, Stack, Contact
@@ -45,8 +45,8 @@ src/
 ```
 
 ## ⚡ Performance
-- **Sem WebGL/Three.js** — o vídeo carrega o visual, bundle leve (~116 KB gzip de JS).
-- **Vídeo só no desktop**; no mobile e em `prefers-reduced-motion` usa o poster estático.
+- **Sem WebGL/Three.js e sem vídeo** — fundo em canvas 2D vetorial, bundle leve (~117 KB gzip de JS).
+- Roda em **mobile e desktop** (menos nós no mobile). Em `prefers-reduced-motion` renderiza um quadro estático.
 - Parallax e animações só com **transform/opacity**. `backdrop-filter` (vidro) com autoprefix (browserslist).
 
 ## 💻 Rodar localmente (opcional)

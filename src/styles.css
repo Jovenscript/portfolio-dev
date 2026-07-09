@@ -1,6 +1,20 @@
 /* ================= LOGO ================= */
 .logo{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-weight:700}
-.logo-mark{display:block;filter:drop-shadow(0 3px 10px rgba(78,150,255,.28))}
+.logo-mark{display:block;filter:drop-shadow(0 2px 8px rgba(86,180,255,.35))}
+.logo-mark .trace{stroke-dasharray:60}
+.logo-mark.anim .trace{stroke-dashoffset:60;animation:lmDraw 1.1s var(--ease) forwards}
+.logo-mark .nodes circle{transform-box:fill-box;transform-origin:center}
+.logo-mark.anim .nodes circle{opacity:0;animation:lmNode .5s ease forwards .75s}
+.logo-mark.anim{animation:lmGlow 3.6s ease-in-out infinite 1.4s}
+@keyframes lmDraw{to{stroke-dashoffset:0}}
+@keyframes lmNode{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+@keyframes lmGlow{0%,100%{filter:drop-shadow(0 2px 8px rgba(86,180,255,.3))}
+  50%{filter:drop-shadow(0 2px 13px rgba(86,224,208,.55))}}
+@media (prefers-reduced-motion:reduce){
+  .logo-mark.anim .trace{animation:none;stroke-dashoffset:0}
+  .logo-mark.anim .nodes circle{animation:none;opacity:1}
+  .logo-mark.anim{animation:none}
+}
 .logo-word{font-family:var(--font-display);font-size:16px;letter-spacing:-.01em;color:var(--text);font-weight:800}
 .logo-word b{font-weight:800}
 .logo-word .dev{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -227,7 +241,7 @@
 /* ================= RESPONSIVO ================= */
 @media (max-width:960px){
   .hero-inner{grid-template-columns:1fr}
-  .id-card{order:-1;max-width:460px}
+  .atom-wrap,.id-card{order:-1}
   .about-grid{grid-template-columns:1fr}
   .about-card{max-width:420px}
   .stack{grid-template-columns:1fr 1fr}
@@ -248,3 +262,22 @@
   .nav a{padding:14px;font-size:16px}
 }
 @media (max-width:420px){.socials{grid-template-columns:1fr}.stats{gap:22px}}
+
+/* ================= ÁTOMO (hero) ================= */
+.atom-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;justify-self:center}
+.atom-stage{position:relative;width:min(440px,80vw);aspect-ratio:1}
+.atom-orbits{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  filter:drop-shadow(0 0 6px rgba(86,180,255,.25))}
+.nucleus{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;
+  width:33%;aspect-ratio:1;display:grid;place-items:center;border-radius:50%;
+  background:radial-gradient(circle at 50% 38%,rgba(22,30,48,.9),rgba(8,11,18,.92));
+  border:1px solid var(--glass-hair);backdrop-filter:var(--blur);
+  box-shadow:0 0 46px rgba(78,150,255,.4),inset 0 1px 0 rgba(255,255,255,.12)}
+.nucleus svg{width:66%;height:auto}
+.electron{position:absolute;top:0;left:0;display:grid;place-items:center;border-radius:50%;
+  background:var(--glass-2);border:1px solid var(--glass-hair);backdrop-filter:var(--blur);
+  box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 14px rgba(86,180,255,.28);will-change:transform,opacity}
+.electron img{width:56%;height:56%;object-fit:contain;pointer-events:none}
+.atom-cap{margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;color:var(--muted);
+  display:flex;align-items:center;gap:9px}
+@media (prefers-reduced-motion:reduce){.electron{transition:none}}

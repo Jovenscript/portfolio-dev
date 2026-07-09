@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { STATS } from '../../data/site'
 import { usePrefersReducedMotion } from '../../lib/hooks'
-import { Logo } from '../brand/Logo'
 import { Reveal } from '../ui/Reveal'
-import { IconArrow, IconCode, IconPin, IconSpark } from '../ui/icons'
+import { IconArrow } from '../ui/icons'
+import { Atom } from './Atom'
 
 function StatCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
   const ref = useRef<HTMLElement>(null)
@@ -22,29 +22,6 @@ function StatCounter({ end, suffix, label }: { end: number; suffix: string; labe
       <dt ref={ref as any}>{val}{suffix}</dt>
       <dd>{label}</dd>
     </div>
-  )
-}
-
-/** Cartão de vidro (business card) que substitui o antigo 3D. */
-function IdCard() {
-  return (
-    <Reveal className="id-card" delay={0.1} y={30}>
-      <div className="id-top">
-        <span className="id-brand"><Logo /></span>
-        <span className="id-chip">Full Stack</span>
-      </div>
-      <h2 className="id-name">Marlon Tavares</h2>
-      <p className="id-role">Desenvolvedor Full Stack &amp; técnico de manutenção industrial</p>
-      <div className="id-facts">
-        <div><IconPin /> Jaraguá do Sul · Santa Catarina</div>
-        <div><IconCode /> React · Firebase · JavaScript</div>
-        <div><IconSpark /> 4 produtos rodando em produção</div>
-      </div>
-      <div className="id-tags">
-        <span>Vite</span><span>Tailwind</span><span>Capacitor</span><span>Cloud Functions</span>
-      </div>
-      <div className="id-status"><span className="dot" />Disponível para novos projetos</div>
-    </Reveal>
   )
 }
 
@@ -83,7 +60,7 @@ export function Hero() {
           </Reveal>
         </motion.div>
 
-        <IdCard />
+        <Atom />
       </div>
       <div className="container"><div className="scroll-hint">Role para explorar</div></div>
     </section>
