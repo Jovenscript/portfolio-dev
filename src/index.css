@@ -12,7 +12,8 @@
   /* GLASS (vidro escuro estilo macOS/iOS para leitura sobre o vídeo) */
   --glass:rgba(17,22,33,.55);
   --glass-2:rgba(12,16,25,.68);
-  --glass-hair:rgba(255,255,255,.12);
+  --glass-hair:rgba(255,255,255,.14);
+  --glass-sheen:linear-gradient(150deg,rgba(255,255,255,.09),rgba(255,255,255,0) 44%);
   --glass-hi:rgba(255,255,255,.07);
   --blur:blur(18px) saturate(150%);
   --blur-lg:blur(26px) saturate(160%);

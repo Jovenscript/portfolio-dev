@@ -4,7 +4,6 @@ import { STATS } from '../../data/site'
 import { usePrefersReducedMotion } from '../../lib/hooks'
 import { Reveal } from '../ui/Reveal'
 import { IconArrow } from '../ui/icons'
-import { Atom } from './Atom'
 
 function StatCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
   const ref = useRef<HTMLElement>(null)
@@ -17,28 +16,20 @@ function StatCounter({ end, suffix, label }: { end: number; suffix: string; labe
     const c = animate(0, end, { duration: 1.2, ease: 'easeOut', onUpdate: (v) => setVal(Math.floor(v)) })
     return () => c.stop()
   }, [inView, end, reduce])
-  return (
-    <div>
-      <dt ref={ref as any}>{val}{suffix}</dt>
-      <dd>{label}</dd>
-    </div>
-  )
+  return (<div><dt ref={ref as any}>{val}{suffix}</dt><dd>{label}</dd></div>)
 }
 
 export function Hero() {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 500], [0, -40])
-
   return (
     <section className="hero" id="topo">
       <div className="container hero-inner">
         <motion.div className="hero-text" style={{ y }}>
           <Reveal><p className="eyebrow">Desenvolvedor Full Stack · Jaraguá do Sul, SC</p></Reveal>
           <Reveal delay={0.05}>
-            <h1>
-              Construo produtos<br />digitais com{' '}
-              <span className="grad">acabamento de<br />engenharia</span>.
-            </h1>
+            <h1>Construo produtos<br />digitais com{' '}
+              <span className="grad">acabamento de<br />engenharia</span>.</h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="lead">
@@ -54,13 +45,9 @@ export function Hero() {
             </div>
           </Reveal>
           <Reveal delay={0.2}>
-            <dl className="stats">
-              {STATS.map((s) => <StatCounter key={s.label} {...s} />)}
-            </dl>
+            <dl className="stats">{STATS.map((s) => <StatCounter key={s.label} {...s} />)}</dl>
           </Reveal>
         </motion.div>
-
-        <Atom />
       </div>
       <div className="container"><div className="scroll-hint">Role para explorar</div></div>
     </section>
