@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './styles.css'
 import type { Project } from './data/site'
+import { SoundProvider } from './lib/sound'
 import { Backdrop } from './components/layout/Backdrop'
 import { Navbar, ScrollProgress } from './components/layout/Navbar'
 import { Footer, Lightbox } from './components/layout/Footer'
 import { Hero } from './components/hero/Hero'
 import { Marquee } from './components/ui/Marquee'
+import { SoundToggle } from './components/ui/SoundToggle'
 import { About } from './components/sections/About'
 import { Projects } from './components/sections/Projects'
 import { Stack } from './components/sections/Stack'
@@ -14,7 +16,7 @@ import { Contact } from './components/sections/Contact'
 export default function App() {
   const [active, setActive] = useState<Project | null>(null)
   return (
-    <>
+    <SoundProvider>
       <a className="skip-link" href="#sobre">Pular para o conteúdo</a>
       <Backdrop />
       <div className="grain" aria-hidden />
@@ -34,7 +36,8 @@ export default function App() {
         <Footer />
       </div>
 
+      <SoundToggle />
       <Lightbox project={active} onClose={() => setActive(null)} />
-    </>
+    </SoundProvider>
   )
 }

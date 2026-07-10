@@ -280,3 +280,32 @@
   box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 16px rgba(86,180,255,.3);will-change:transform,opacity}
 .electron img{width:56%;height:56%;object-fit:contain;pointer-events:none}
 @media (max-width:680px){.atom-bg{opacity:.6}}
+
+/* ================= TYPEWRITER ================= */
+.tw{position:relative;white-space:pre-wrap}
+.tw-size{visibility:hidden}
+.tw-type{position:absolute;inset:0}
+.tw-cur{display:inline-block;width:.5ch;max-width:9px;height:1em;transform:translateY(.14em);
+  background:var(--a2);border-radius:2px;margin-left:.05em;box-shadow:0 0 8px rgba(86,224,208,.8);
+  animation:twBlink 1s steps(1,end) infinite}
+@keyframes twBlink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.tw-cur{display:none}}
+
+/* ================= BOTÃO DE SOM ================= */
+.sound-toggle{position:fixed;right:18px;bottom:18px;z-index:70;display:inline-flex;align-items:center;gap:10px;
+  padding:11px 16px 11px 14px;border-radius:999px;cursor:pointer;color:var(--text);
+  background:var(--glass-sheen),var(--glass);border:1px solid var(--glass-hair);
+  backdrop-filter:var(--blur);box-shadow:var(--glass-shadow);
+  transition:transform .2s var(--ease),border-color .2s}
+.sound-toggle:hover{transform:translateY(-2px);border-color:var(--a1)}
+.sound-toggle svg{width:18px;height:18px;color:var(--muted)}
+.sound-toggle.on{border-color:rgba(86,224,208,.5)}
+.sound-label{font-size:12.5px;font-weight:500;font-family:var(--font-mono);letter-spacing:.02em}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;width:18px;height:15px}
+.eq i{flex:1;background:var(--grad);border-radius:1px;height:30%;animation:eqb .9s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.15s}.eq i:nth-child(3){animation-delay:.3s}.eq i:nth-child(4){animation-delay:.45s}
+@keyframes eqb{0%,100%{height:25%}50%{height:100%}}
+.sound-toggle:not(.on){animation:sndPulse 2.6s ease-in-out 1.6s 3}
+@keyframes sndPulse{0%,100%{box-shadow:var(--glass-shadow)}50%{box-shadow:var(--glass-shadow),0 0 0 6px rgba(86,224,208,.13)}}
+@media (max-width:680px){.sound-label{display:none}.sound-toggle{padding:12px}}
+@media (prefers-reduced-motion:reduce){.eq i{animation:none;height:60%}.sound-toggle{animation:none}}

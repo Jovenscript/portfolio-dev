@@ -56,7 +56,7 @@ export const PROJECTS: Project[] = [
   {
     title: '5S Manutenção', cat: 'industrial', catLabel: 'Industrial', live: true,
     frame: 'phone', image: 'assets/proj-5s.webp',
-    desc: 'Sistema de inventário usado diariamente pelo setor de manutenção — nasceu de uma necessidade real do chão de fábrica.',
+    desc: 'Sistema de inventário industrial em uso diário — controle de peças, workspaces por área e notificações em tempo real entre dispositivos.',
     feats: [
       'Workspaces por área (Mecânica / Elétrica)',
       'Notificações em tempo real entre dispositivos',
@@ -109,6 +109,6 @@ export const STACK = [
 
 export const STATS = [
   { end: 4, suffix: '', label: 'apps em produção' },
-  { end: 5, suffix: '+', label: 'anos na indústria' },
+  { end: 100, suffix: '%', label: 'autodidata' },
   { end: 12, suffix: '+', label: 'tecnologias' },
 ]

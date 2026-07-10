@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CONFIG } from '../../data/site'
 import { Reveal } from '../ui/Reveal'
+import { Typewriter } from '../ui/Typewriter'
 import { IconGit, IconIn, IconMail, IconWa } from '../ui/icons'
 
 const socials = [
@@ -43,11 +44,11 @@ export function Contact() {
 
   return (
     <section id="contato" className="section">
-      <Reveal as="header" className="section-head">
-        <span className="tag">04 — Contato</span>
-        <h2>Vamos construir algo</h2>
-        <p className="section-sub">Projeto, freela ou oportunidade — respondo mais rápido pelo WhatsApp.</p>
-      </Reveal>
+      <header className="section-head">
+        <Reveal><span className="tag">04 — Contato</span></Reveal>
+        <Typewriter as="h2" speed={30} text="Vamos construir algo" />
+        <Typewriter as="p" className="section-sub" speed={12} text="Projeto, freela ou oportunidade — respondo mais rápido pelo WhatsApp." />
+      </header>
 
       <div className="contact">
         <Reveal>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { PROJECTS, type Project } from '../../data/site'
 import { Reveal } from '../ui/Reveal'
+import { Typewriter } from '../ui/Typewriter'
 import { IconExt, IconGit } from '../ui/icons'
 
 const FILTERS: [string, string][] = [
@@ -32,11 +33,11 @@ export function Projects({ onOpen }: { onOpen: (p: Project) => void }) {
 
   return (
     <section id="projetos" className="section">
-      <Reveal as="header" className="section-head">
-        <span className="tag">02 — Projetos</span>
-        <h2>Produtos reais, em produção</h2>
-        <p className="section-sub">Do e-commerce com vendas ativas ao sistema que roda no chão de fábrica.</p>
-      </Reveal>
+      <header className="section-head">
+        <Reveal><span className="tag">02 — Projetos</span></Reveal>
+        <Typewriter as="h2" speed={30} text="Produtos reais, em produção" />
+        <Typewriter as="p" className="section-sub" speed={12} text="Do e-commerce com vendas ativas ao app instalável no celular." />
+      </header>
 
       <Reveal className="filters">
         {FILTERS.map(([id, label]) => (

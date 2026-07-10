@@ -1,14 +1,15 @@
 import { STACK } from '../../data/site'
 import { Reveal } from '../ui/Reveal'
+import { Typewriter } from '../ui/Typewriter'
 
 export function Stack() {
   return (
     <section id="stack" className="section">
-      <Reveal as="header" className="section-head">
-        <span className="tag">03 — Stack</span>
-        <h2>Ferramentas de trabalho</h2>
-        <p className="section-sub">Nível medido pelo uso em projetos reais — não por cursos concluídos.</p>
-      </Reveal>
+      <header className="section-head">
+        <Reveal><span className="tag">03 — Stack</span></Reveal>
+        <Typewriter as="h2" speed={30} text="Ferramentas de trabalho" />
+        <Typewriter as="p" className="section-sub" speed={12} text="Nível medido pelo uso em projetos reais — não por cursos concluídos." />
+      </header>
 
       <div className="stack">
         {STACK.map((g, gi) => (

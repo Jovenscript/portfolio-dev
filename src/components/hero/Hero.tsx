@@ -3,6 +3,7 @@ import { animate, motion, useInView, useScroll, useTransform } from 'framer-moti
 import { STATS } from '../../data/site'
 import { usePrefersReducedMotion } from '../../lib/hooks'
 import { Reveal } from '../ui/Reveal'
+import { Typewriter } from '../ui/Typewriter'
 import { IconArrow } from '../ui/icons'
 
 function StatCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
@@ -27,17 +28,14 @@ export function Hero() {
       <div className="container hero-inner">
         <motion.div className="hero-text" style={{ y }}>
           <Reveal><p className="eyebrow">Desenvolvedor Full Stack · Jaraguá do Sul, SC</p></Reveal>
-          <Reveal delay={0.05}>
-            <h1>Construo produtos<br />digitais com{' '}
-              <span className="grad">acabamento de<br />engenharia</span>.</h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="lead">
-              Da manutenção industrial ao código: entrego software que roda de verdade em produção —
-              e-commerce com cliente ativo, PWAs instaláveis e sistemas usados todos os dias. Cada
-              detalhe pensado como quem não aceita “quase funcionando”.
-            </p>
-          </Reveal>
+          <Typewriter
+            as="h1" speed={40} startDelay={250}
+            segments={[{ t: 'Transformo código\n' }, { t: 'em ' }, { t: 'produtos reais', c: 'grad' }, { t: '.' }]}
+          />
+          <Typewriter
+            as="p" className="lead" speed={9} startDelay={1600}
+            text={'Desenvolvedor full-stack. Escrevo software que roda de verdade em produção — e-commerce com cliente ativo, apps instaláveis e sistemas usados todos os dias. Do front-end ao deploy, com obsessão por detalhe.'}
+          />
           <Reveal delay={0.15}>
             <div className="cta">
               <a className="btn primary" href="#projetos">Ver projetos <IconArrow /></a>
