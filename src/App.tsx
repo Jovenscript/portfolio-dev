@@ -7,7 +7,7 @@ import { Navbar, ScrollProgress } from './components/layout/Navbar'
 import { Footer, Lightbox } from './components/layout/Footer'
 import { Hero } from './components/hero/Hero'
 import { Marquee } from './components/ui/Marquee'
-import { SoundToggle } from './components/ui/SoundToggle'
+import { MusicDock } from './components/ui/MusicDock'
 import { About } from './components/sections/About'
 import { Projects } from './components/sections/Projects'
 import { Stack } from './components/sections/Stack'
@@ -36,7 +36,7 @@ export default function App() {
         <Footer />
       </div>
 
-      <SoundToggle />
+      <MusicDock />
       <Lightbox project={active} onClose={() => setActive(null)} />
     </SoundProvider>
   )

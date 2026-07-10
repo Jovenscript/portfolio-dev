@@ -13,7 +13,7 @@
   --glass:rgba(17,22,33,.55);
   --glass-2:rgba(12,16,25,.68);
   --glass-hair:rgba(255,255,255,.14);
-  --glass-sheen:linear-gradient(150deg,rgba(255,255,255,.09),rgba(255,255,255,0) 44%);
+  --glass-sheen:linear-gradient(150deg,rgba(255,255,255,.11),rgba(255,255,255,0) 46%);
   --glass-hi:rgba(255,255,255,.07);
   --blur:blur(18px) saturate(150%);
   --blur-lg:blur(26px) saturate(160%);
@@ -22,7 +22,7 @@
   --font-display:"Sora",system-ui,sans-serif;
   --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
-  --maxw:1140px; --pad:clamp(18px,4.2vw,40px); --radius:18px;
+  --maxw:1140px; --pad:clamp(18px,4.2vw,40px); --radius:20px;
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}

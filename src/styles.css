@@ -66,11 +66,14 @@
 .btn.ghost{color:var(--text);background:var(--glass-sheen),var(--glass);border-color:var(--glass-hair);
   backdrop-filter:var(--blur);}
 .btn.ghost:hover{border-color:var(--a1);color:var(--a1);transform:translateY(-2px)}
-.stats{display:flex;gap:clamp(20px,4vw,40px);margin:0;flex-wrap:wrap}
-.stats div{display:flex;flex-direction:column;gap:2px}
-.stats dt{font-family:var(--font-display);font-size:clamp(26px,3vw,34px);font-weight:800;
+.stats{display:flex;gap:14px;margin:0;flex-wrap:wrap}
+.stats div{display:flex;flex-direction:column;gap:5px;padding:15px 20px;border-radius:var(--radius);
+  background:var(--glass-sheen),var(--glass);border:1px solid var(--glass-hair);backdrop-filter:var(--blur);
+  box-shadow:var(--glass-shadow);min-width:118px;transition:transform .25s var(--ease),border-color .25s}
+.stats div:hover{transform:translateY(-3px);border-color:rgba(127,178,255,.4)}
+.stats dt{font-family:var(--font-display);font-size:clamp(26px,3vw,34px);font-weight:800;line-height:1;
   background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stats dd{margin:0;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.stats dd{margin:0;font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
 
 /* cartão de vidro do hero */
 .id-card{position:relative;background:var(--glass-sheen),var(--glass);backdrop-filter:var(--blur-lg);
@@ -90,9 +93,14 @@
 .id-tags span{font-family:var(--font-mono);font-size:11px;color:var(--muted);border:1px solid var(--glass-hair);
   border-radius:7px;padding:4px 10px;background:rgba(255,255,255,.04)}
 .id-status{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text);font-weight:500}
-.scroll-hint{padding:0 0 30px;font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
-.scroll-hint::before{content:"";width:1px;height:26px;background:linear-gradient(var(--a2),transparent)}
+.scroll-cue{display:flex;align-items:center;gap:13px;padding:2px 0 34px}
+.scroll-ring{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex:none;
+  background:var(--glass-sheen),var(--glass);border:1px solid var(--glass-hair);backdrop-filter:var(--blur);
+  box-shadow:var(--glass-shadow);color:var(--a2);animation:bob 1.9s ease-in-out infinite}
+.scroll-ring svg{width:18px;height:18px}
+.scroll-txt{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion:reduce){.scroll-ring{animation:none}}
 
 /* ================= MARQUEE (glass) ================= */
 .marquee{border:1px solid var(--glass-hair);border-left:none;border-right:none;padding:20px 0;overflow:hidden;
@@ -291,21 +299,31 @@
 @keyframes twBlink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.tw-cur{display:none}}
 
-/* ================= BOTÃO DE SOM ================= */
-.sound-toggle{position:fixed;right:18px;bottom:18px;z-index:70;display:inline-flex;align-items:center;gap:10px;
-  padding:11px 16px 11px 14px;border-radius:999px;cursor:pointer;color:var(--text);
-  background:var(--glass-sheen),var(--glass);border:1px solid var(--glass-hair);
-  backdrop-filter:var(--blur);box-shadow:var(--glass-shadow);
-  transition:transform .2s var(--ease),border-color .2s}
-.sound-toggle:hover{transform:translateY(-2px);border-color:var(--a1)}
-.sound-toggle svg{width:18px;height:18px;color:var(--muted)}
-.sound-toggle.on{border-color:rgba(86,224,208,.5)}
-.sound-label{font-size:12.5px;font-weight:500;font-family:var(--font-mono);letter-spacing:.02em}
-.eq{display:inline-flex;align-items:flex-end;gap:2px;width:18px;height:15px}
+/* ================= MINI-PLAYER (Spotify) + SOM ================= */
+.music-dock{position:fixed;right:18px;bottom:18px;z-index:70;width:min(330px,calc(100vw - 36px));
+  background:var(--glass-sheen),var(--glass-2);border:1px solid var(--glass-hair);border-radius:18px;
+  backdrop-filter:var(--blur-lg);box-shadow:var(--glass-shadow);overflow:hidden}
+.dock-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 8px}
+.dock-title{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.04em;color:var(--muted)}
+.dock-title svg{width:15px;height:15px;color:var(--a2)}
+.dock-tools{display:inline-flex;align-items:center;gap:6px}
+.dock-sfx,.dock-min{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;cursor:pointer;
+  color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--glass-hair);transition:color .2s,border-color .2s}
+.dock-sfx:hover,.dock-min:hover{color:var(--text);border-color:var(--a1)}
+.dock-sfx svg{width:15px;height:15px}
+.dock-sfx.on{color:var(--a2);border-color:rgba(86,224,208,.5)}
+.dock-min{font-size:20px;line-height:1;padding-bottom:3px}
+.dock-spotify{display:block;width:100%;border:0;border-radius:0 0 18px 18px}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;width:15px;height:13px}
 .eq i{flex:1;background:var(--grad);border-radius:1px;height:30%;animation:eqb .9s ease-in-out infinite}
 .eq i:nth-child(2){animation-delay:.15s}.eq i:nth-child(3){animation-delay:.3s}.eq i:nth-child(4){animation-delay:.45s}
 @keyframes eqb{0%,100%{height:25%}50%{height:100%}}
-.sound-toggle:not(.on){animation:sndPulse 2.6s ease-in-out 1.6s 3}
+.music-fab{position:fixed;right:18px;bottom:18px;z-index:70;width:52px;height:52px;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;color:var(--text);background:var(--glass-sheen),var(--glass);
+  border:1px solid var(--glass-hair);backdrop-filter:var(--blur);box-shadow:var(--glass-shadow);
+  animation:sndPulse 2.6s ease-in-out 1.6s 3;transition:transform .2s var(--ease),border-color .2s}
+.music-fab:hover{transform:translateY(-2px);border-color:var(--a1)}
+.music-fab svg{width:20px;height:20px;color:var(--a2)}
 @keyframes sndPulse{0%,100%{box-shadow:var(--glass-shadow)}50%{box-shadow:var(--glass-shadow),0 0 0 6px rgba(86,224,208,.13)}}
-@media (max-width:680px){.sound-label{display:none}.sound-toggle{padding:12px}}
-@media (prefers-reduced-motion:reduce){.eq i{animation:none;height:60%}.sound-toggle{animation:none}}
+@media (prefers-reduced-motion:reduce){.eq i{animation:none;height:60%}.music-fab{animation:none}}

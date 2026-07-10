@@ -4,7 +4,7 @@ import { STATS } from '../../data/site'
 import { usePrefersReducedMotion } from '../../lib/hooks'
 import { Reveal } from '../ui/Reveal'
 import { Typewriter } from '../ui/Typewriter'
-import { IconArrow } from '../ui/icons'
+import { IconArrow, IconChevronDown } from '../ui/icons'
 
 function StatCounter({ end, suffix, label }: { end: number; suffix: string; label: string }) {
   const ref = useRef<HTMLElement>(null)
@@ -47,7 +47,12 @@ export function Hero() {
           </Reveal>
         </motion.div>
       </div>
-      <div className="container"><div className="scroll-hint">Role para explorar</div></div>
+      <div className="container">
+        <div className="scroll-cue">
+          <span className="scroll-ring"><IconChevronDown /></span>
+          <span className="scroll-txt">Role para explorar</span>
+        </div>
+      </div>
     </section>
   )
 }
