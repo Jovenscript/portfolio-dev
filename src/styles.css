@@ -351,3 +351,8 @@ html.lenis,html.lenis body{height:auto}
   .btn.primary::after{display:none}
   .audio-mini,.project::after{transition:none}
 }
+
+/* Controle de áudio "chama atenção" enquanto a música não toca */
+.audio-mini.idle{opacity:.85;animation:amPulse 2.8s ease-in-out 1.2s 4}
+@keyframes amPulse{0%,100%{box-shadow:var(--glass-shadow)}50%{box-shadow:var(--glass-shadow),0 0 0 7px rgba(86,224,208,.14)}}
+@media (prefers-reduced-motion:reduce){.audio-mini.idle{animation:none}}

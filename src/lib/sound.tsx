@@ -52,8 +52,10 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     audio.addEventListener('play', onPlay)
     audio.addEventListener('pause', onPause)
 
-    const evs = ['pointerdown', 'touchstart', 'keydown', 'click', 'wheel', 'scroll']
-    const onFirst = () => { audio.play().catch(() => {}); disarm() }
+    // Só gestos que o navegador aceita para liberar áudio (roda do mouse NÃO conta).
+    const evs = ['pointerdown', 'keydown']
+    // Desarma somente quando o play FUNCIONAR — nunca na falha.
+    const onFirst = () => { audio.play().then(disarm).catch(() => {}) }
     const arm = () => evs.forEach((e) => window.addEventListener(e, onFirst, { passive: true }))
     const disarm = () => evs.forEach((e) => window.removeEventListener(e, onFirst))
 

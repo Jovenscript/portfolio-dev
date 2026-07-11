@@ -32,7 +32,7 @@ const IconVolMute = () => (
 export function AudioControl() {
   const { playing, muted, togglePlay, toggleMute } = useSound()
   return (
-    <div className="audio-mini" role="group" aria-label="Controle de áudio">
+    <div className={`audio-mini${playing ? '' : ' idle'}`} role="group" aria-label="Controle de áudio">
       <button
         className={`am-btn${playing ? ' active' : ''}`}
         onClick={togglePlay}
