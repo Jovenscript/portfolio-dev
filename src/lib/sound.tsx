@@ -1,17 +1,32 @@
-import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 
-// Som de teclado gerado por código (WebAudio). A música agora é o player
-// oficial do Spotify (ver MusicDock), então não hospedamos áudio próprio.
-type SoundAPI = { enabled: boolean; toggle: () => void; playKey: () => void }
-const Ctx = createContext<SoundAPI>({ enabled: false, toggle() {}, playKey() {} })
+// Coloque seu arquivo licenciado em: public/assets/track.mp3
+const MUSIC_SRC = 'assets/track.mp3'
+
+type SoundAPI = {
+  playing: boolean
+  muted: boolean
+  togglePlay: () => void
+  toggleMute: () => void
+  playKey: () => void
+}
+const Ctx = createContext<SoundAPI>({
+  playing: false, muted: false, togglePlay() {}, toggleMute() {}, playKey() {},
+})
 export const useSound = () => useContext(Ctx)
 
 export function SoundProvider({ children }: { children: ReactNode }) {
-  const [enabled, setEnabled] = useState(false)
-  const enabledRef = useRef(false)
+  const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const playingRef = useRef(false)
+  const mutedRef = useRef(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const acRef = useRef<AudioContext | null>(null)
   const noiseRef = useRef<AudioBuffer | null>(null)
   const lastKey = useRef(0)
+
+  const setPlay = (v: boolean) => { playingRef.current = v; setPlaying(v) }
 
   const ensureAC = () => {
     if (!acRef.current) {
@@ -27,15 +42,52 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     return acRef.current
   }
 
-  const toggle = useCallback(() => {
-    const next = !enabledRef.current
-    enabledRef.current = next
-    setEnabled(next)
+  // Autoplay ao entrar; se o navegador bloquear, inicia na 1ª interação.
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.volume = 0.4
+    const onPlay = () => setPlay(true)
+    const onPause = () => setPlay(false)
+    audio.addEventListener('play', onPlay)
+    audio.addEventListener('pause', onPause)
+
+    const evs = ['pointerdown', 'touchstart', 'keydown', 'click', 'wheel', 'scroll']
+    const onFirst = () => { audio.play().catch(() => {}); disarm() }
+    const arm = () => evs.forEach((e) => window.addEventListener(e, onFirst, { passive: true }))
+    const disarm = () => evs.forEach((e) => window.removeEventListener(e, onFirst))
+
+    audio.play().catch(() => arm()) // tenta autoplay; se falhar, arma a 1ª interação
+
+    return () => {
+      audio.removeEventListener('play', onPlay)
+      audio.removeEventListener('pause', onPause)
+      disarm()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const togglePlay = useCallback(() => {
+    const a = audioRef.current
+    if (!a) return
     ensureAC()
+    if (a.paused) a.play().catch(() => {})
+    else a.pause()
+  }, [])
+
+  const toggleMute = useCallback(() => {
+    const a = audioRef.current
+    if (!a) return
+    ensureAC()
+    const nv = !mutedRef.current
+    mutedRef.current = nv
+    a.muted = nv
+    setMuted(nv)
+    if (nv === false && a.paused) a.play().catch(() => {}) // desmutar também retoma
   }, [])
 
   const playKey = useCallback(() => {
-    if (!enabled) return
+    if (!playingRef.current || mutedRef.current) return
     const ac = acRef.current
     if (!ac) return
     const now = performance.now()
@@ -53,7 +105,12 @@ export function SoundProvider({ children }: { children: ReactNode }) {
       s.buffer = noiseRef.current; ng.gain.value = 0.05
       s.connect(ng).connect(ac.destination); s.start(t)
     }
-  }, [enabled])
+  }, [])
 
-  return <Ctx.Provider value={{ enabled, toggle, playKey }}>{children}</Ctx.Provider>
+  return (
+    <Ctx.Provider value={{ playing, muted, togglePlay, toggleMute, playKey }}>
+      {children}
+      <audio ref={audioRef} src={MUSIC_SRC} loop preload="auto" autoPlay />
+    </Ctx.Provider>
+  )
 }
